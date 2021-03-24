@@ -12,12 +12,18 @@ function App() {
   ]
   );
 
+  const handleDelete = (id) =>{
+    let filterData = contact.filter(function(contact){
+      return contact.id !== id;
+    });
+    setContact(filterData);
+  }
   return (
     <div>
       <Navbar title="Contact Management System" />
       <Form />
       {contact.map((contact) =>
-        <Contact contact={contact} key={contact.id} />
+        <Contact contact={contact} delete = {handleDelete} key={contact.id} />
       )}
     </div>
   );
