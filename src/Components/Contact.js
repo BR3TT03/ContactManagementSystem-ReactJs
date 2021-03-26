@@ -8,8 +8,13 @@ function Contact(props) {
     }
     let dynamicIcon = isShowing?"fas fa-chevron-right mr-2":"fas fa-chevron-down mr-2"
    const handleDelete = () =>{
-        props.delete(props.contact.id);
-    }
+    props.delete(props.contact.id);
+}
+const handleEdit = (contact) =>{
+    props.edit(contact); 
+}
+      
+       
     return (
         <div className="card w-50 mt-5 mx-auto mb-2">
             <div className="card-header">
@@ -17,15 +22,15 @@ function Contact(props) {
             {props.contact.name}
             <div className="float-right">
                 <i className="fas fa-trash mr-1" onClick={handleDelete}></i>
-                <i className="fas fa-pen ml-1"></i>
+                <i className="fas fa-pen ml-1" onClick={() =>{handleEdit(props.contact) }}></i>
             </div>
-            {isShowing?(<div className="card-body">
+            </div>
+            {isShowing?(<div className="card-body bg-white">
             <ul className="list-group list-group-flush">
                 <li className="list-group-item">{props.contact.phone}</li>
                 <li className="list-group-item">{props.contact.email}</li>
             </ul>
             </div>):null}
-        </div>
         </div>
     );
 }
