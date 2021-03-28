@@ -16,13 +16,7 @@ function App() {
     { id: 3, name: "Shamser Bista", phone: "981328464", email: "brett3@yopmail.com" }
   ]
   );
-  const[editData,setEditData]= useState({
-    id:"",
-    name:"",
-    phone:"",
-    email:""
-  });
-
+  
   const handleDelete = (id) => {
     let filterData = contact.filter(function (contact) {
       return contact.id !== id;
@@ -51,22 +45,42 @@ function App() {
             });
         }
       });
-  }
+  };
 
-  const handleEdit = (contact) =>{
-    setEditData(contact);
-  }
+  const handleEdit = (contactData) =>{
+    let editData = contact.map(function(data){
+      if(contactData.id === data.id){
+        return contactData;
+      }
+      return data;  
+    }
+    );
+    setContact(editData);
+    toast.success('Contact updated successfully', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+  };
 
   const handleFormSubmit = (formData) =>{
     setContact([formData,...contact]);
-  }
+  };
 
   return (
     <div>
       <Navbar title="Contact Management System" />
-      <Form formData = {handleFormSubmit} editData={editData}/>
+      <Form formData = {handleFormSubmit} />
       {contact.map((contact) =>
-        <Contact contact={contact} delete={handleDelete} key={contact.id} edit = {handleEdit} />
+        <Contact 
+        contact={contact} 
+        delete={handleDelete}
+        edit={handleEdit} 
+        key={contact.id} />
       )}
       <ToastContainer/>
     </div>
