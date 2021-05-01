@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Contact from './Components/Contact';
 import Navbar from './Components/Navbar';
 import Form from './Components/Form';
@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import swal from 'sweetalert';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Axios from "axios";
 
 
 function App() {
@@ -71,6 +72,13 @@ function App() {
     setContact([formData,...contact]);
   };
 
+  useEffect(() => {
+    Axios.get("https://api.iptvnepal.net/client-records/find/all")
+      .then((res)=> {
+        console.log(res.data);
+      }
+      )
+  }, [])
   return (
     <div>
       <Navbar title="Contact Management System" />
